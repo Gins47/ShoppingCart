@@ -1,5 +1,7 @@
 # ShoppingCart
 
+This project is inspired by Full Stack eCommerce Cart build from the YouTube channel The Full Stack Junkie [https://youtu.be/0divhP3pEsg]
+
 **Run MongoDB**
 
 ```shell
