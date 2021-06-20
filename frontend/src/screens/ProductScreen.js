@@ -1,21 +1,38 @@
 import "./ProductScreen.css";
-function ProductScreen() {
+
+import axios from "../modules/axios";
+
+import { useState, useEffect } from "react";
+// Components
+function ProductScreen(props) {
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      var config = {
+        method: "get",
+        url: `http://localhost:5000/api/products/${props.match.params.id}`,
+        headers: {},
+      };
+
+      const request = await axios(config);
+      console.log(request.data);
+
+      setProduct(request.data);
+      return request.data;
+    }
+    fetchData();
+  }, [props.match.params.id]);
+
   return (
     <div className="productscreen">
       <div className="productscreen__left">
         <div className="left__image">
-          <img
-            src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
-            alt=""
-          />
+          <img src={product.imageUrl} alt="" />
           <div className="left__info">
-            <p className="left__name">PlayStation 5</p>
+            <p className="left__name">{product.name}</p>
             <p>Price: $499</p>
-            <p>
-              Discription: PlayStation 5 (PS5) is a home video game console developed by Sony Interactive Entertainment. Announced in 2019 as the
-              successor to the PlayStation 4, the PS5 was released on November 12, 2020 in Australia, Japan, New Zealand, North America, Singapore,
-              and South Korea, and November 19, 2020 onwards in other major markets except China and India.
-            </p>
+            <p>{product.description}</p>
           </div>
         </div>
       </div>
